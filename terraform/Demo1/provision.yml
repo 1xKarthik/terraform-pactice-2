@@ -1,0 +1,14 @@
+---
+- hosts: all
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Ensure that Apache is installed
+      yum:
+        name: ["httpd", "nano"]
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Start Apache Services
+      service: name=httpd enabled=yes state=started
